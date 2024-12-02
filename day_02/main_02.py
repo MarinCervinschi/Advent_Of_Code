@@ -30,6 +30,7 @@ if __name__ == '__main__':
             if isValid(line):
                 safe += 1
             else:
+                # part 2
                 for i in range(len(line)):
                     erase = line[:i] + line[i+1:]
                     if isValid(erase):
