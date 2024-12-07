@@ -10,7 +10,7 @@ if __name__ == '__main__':
         
         from backtracking import Backtracking
         sol = Backtracking(_dict)
-        print([sol.part_1(), sol.part_2()]) # 21s
+        print([sol.part_1(), sol.part_2()]) # 3s
 
         from _itertools import Itertools
         sol = Itertools(_dict)
