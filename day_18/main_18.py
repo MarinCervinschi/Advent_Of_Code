@@ -35,39 +35,6 @@ class Solution:
     
     def bfs_1(self, puzzle, start, end):
         queue = deque([((start), [])])
-        visited = set()
-        path = []
-        while queue:
-            pos, path = queue.popleft()
-
-            if pos == end:
-                break
-
-            if pos not in visited:
-                visited.add(pos)
-                path = path + [pos]
-               # self.print_path(path)
-
-                for (dx, dy) in self.directions:
-                    nx, ny = pos[0] + dx, pos[1] + dy
-
-                    if self.valid(nx, ny, puzzle):
-                        queue.append(((nx, ny), path))
-
-        return len(path)
-
-    def part_1(self):
-        puzzle = [list(row) for row in self.puzzle]
-        for x, y in self.coordinates[:1024]:
-            puzzle[y][x] = '#'
-
-        steps = self.bfs_1(puzzle, start=(0, 0), end=(self.rows - 1, self.cols - 1))
-        print(f"Steps --> {steps}")
-    
-    # -------------------------- Part 2 -------------------------- #
-
-    def bfs_2(self, puzzle, start, end):
-        queue = deque([((start), [])])
         path = []
         visited = set()
         while queue:
@@ -88,7 +55,16 @@ class Solution:
                         queue.append(((nx, ny), path))
 
         return 0
-                    
+
+    def part_1(self):
+        puzzle = [list(row) for row in self.puzzle]
+        for x, y in self.coordinates[:1024]:
+            puzzle[y][x] = '#'
+
+        steps = self.bfs_1(puzzle, start=(0, 0), end=(self.rows - 1, self.cols - 1))
+        print(f"Steps --> {steps}")
+    
+    # -------------------------- Part 2 -------------------------- #               
 
     def part_2(self):
         puzzle = [list(row) for row in self.puzzle]
@@ -96,7 +72,7 @@ class Solution:
             x, y = self.coordinates[i]
             puzzle[y][x] = '#'
 
-            steps = self.bfs_2(puzzle, start=(0, 0), end=(self.rows - 1, self.cols - 1))
+            steps = self.bfs_1(puzzle, start=(0, 0), end=(self.rows - 1, self.cols - 1))
             if steps == 0:
                 print(f"Find --> {x},{y}")
                 return
