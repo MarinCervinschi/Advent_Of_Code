@@ -1,4 +1,3 @@
-from functools import cache
 
 if __name__ == "__main__":
 
@@ -6,23 +5,18 @@ if __name__ == "__main__":
         puzzle = list(map(int, (row.strip() for row in f)))
         REPEAT_COUNT = 2000
 
-        @cache
         def mix(num, value):
             return num ^ value
 
-        @cache
         def prune(value):
             return value % 16777216
         
-        @cache
         def _1(num):
             return prune(mix(num, num * 64))
 
-        @cache
         def _2(num):
             return prune(mix(num, num // 32))
             
-        @cache
         def _3(num):
             return prune(mix(num, num * 2048))
         
@@ -38,11 +32,9 @@ if __name__ == "__main__":
 
             return ans
             
-
         def part_2():
             seqs = set()
 
-            @cache
             def get_dict(price):
                 i = 0
                 bananas = {}
@@ -68,5 +60,5 @@ if __name__ == "__main__":
             _map = [get_dict(num) for num in puzzle]
             return max([sum(i.get(seq, 0) for i in _map) for seq in seqs])
 
-        print(f"Answer part 1 --> {part_1()}") # 12s
-        print(f"Answer part 2 --> {part_2()}") # 33s
+        print(f"Answer part 1 --> {part_1()}") # 1s
+        print(f"Answer part 2 --> {part_2()}") # 22s
