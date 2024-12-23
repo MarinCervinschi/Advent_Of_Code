@@ -1,6 +1,8 @@
-from copy import deepcopy
-import time
 import os
+from copy import deepcopy
+from colorama import Fore, Style, init
+
+init()
 
 class Solution:
 
@@ -24,12 +26,20 @@ class Solution:
         return pos[0] + dx, pos[1] + dy
     
     def visualisation(self, puzzle, move, index):
-        time.sleep(0.001)
         os.system('clear')  # For Linux/OS X
         #os.system('cls')  # For Windows
         print(f"Move: {move} ({index} out of {len(self.moves)})")
         for row in puzzle:
-            print(''.join(row))
+            for char in row:
+                if char == '#':
+                    print(Fore.RED + char + Style.RESET_ALL, end='')
+                elif char in ['[', ']', 'O']:
+                    print(Fore.YELLOW + char + Style.RESET_ALL, end='')
+                elif char == '@':
+                    print(Fore.GREEN + char + Style.RESET_ALL, end='')
+                else:
+                    print(char, end='')
+            print()
 
         print(50 * '-')
 
