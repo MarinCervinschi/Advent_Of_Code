@@ -5,7 +5,7 @@ def part_1(file):
         dir = row[0]
         times = int(row[1:])
 
-        if dir == 'L':
+        if dir == "L":
             dial = (dial - times) % 100
         else:
             dial = (dial + times) % 100
@@ -14,6 +14,7 @@ def part_1(file):
             ans += 1
 
     print(ans)
+
 
 def part_2(file):
     ans = 0
@@ -26,7 +27,7 @@ def part_2(file):
         ans += gz
 
         leftover = times % 100
-        if dir == 'L':
+        if dir == "L":
             if dial != 0 and (dial - leftover) < 0:
                 ans += 1
             dial = (dial - times) % 100
@@ -43,8 +44,11 @@ def part_2(file):
 
 
 if __name__ == "__main__":
+    from pathlib import Path
 
-    with open("puzzle.txt", "r") as file:
+    PATH = Path(__file__).parent
+
+    with open(PATH / "puzzle.txt", "r") as file:
         rows = file.readlines()
         part_1(rows)
         part_2(rows)
