@@ -1,26 +1,10 @@
-from copy import deepcopy
+import time
 
-
-def _print(m):
-    for row in m:
-        print("".join(row))
-
-    print(50 * "-")
-
-
-DIRECTIONS = [
-    (1, 0),
-    (0, 1),
-    (0, -1),
-    (1, 1),
-    (-1, 0),
-    (1, -1),
-    (-1, 1),
-    (-1, -1),
-]
+DIRECTIONS = [(1, 0), (0, 1), (0, -1), (1, 1), (-1, 0), (1, -1), (-1, 1), (-1, -1)]
 
 
 def part_1(grid):
+    time_start = time.time()
     rows, cols = len(grid), len(grid[0])
     rolls = 0
 
@@ -37,15 +21,16 @@ def part_1(grid):
                     rolls += 1
 
     print(rolls)
+    print(f"Part 1 Execution Time: {time.time() - time_start:.6f}seconds")
 
 
 def part_2(grid):
+    time_start = time.time()
     rows, cols = len(grid), len(grid[0])
     rolls = 0
 
     while True:
         cur_rolls = 0
-        temp = deepcopy(grid)
         for r in range(rows):
             for c in range(cols):
                 if grid[r][c] == "@":
@@ -56,15 +41,15 @@ def part_2(grid):
                             if grid[nx][ny] == "@":
                                 can_accessed += 1
                     if can_accessed < 4:
-                        temp[r][c] = "."
+                        grid[r][c] = "."
                         cur_rolls += 1
 
-        grid = temp
         rolls += cur_rolls
         if cur_rolls == 0:
             break
 
     print(rolls)
+    print(f"Part 2 Execution Time: {time.time() - time_start:.6f}seconds")
 
 
 if __name__ == "__main__":
@@ -77,6 +62,5 @@ if __name__ == "__main__":
         for row in file:
             grid.append(list(row.strip()))
 
-        # _print(grid)
         part_1(grid)
         part_2(grid)
