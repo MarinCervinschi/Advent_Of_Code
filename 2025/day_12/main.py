@@ -1,4 +1,5 @@
 import numpy as np
+from tqdm import tqdm
 
 
 def part_1(data):
@@ -76,7 +77,6 @@ def part_1(data):
         return dfs(grid, list_of_presents)
 
     fit_all = 0
-    from tqdm import tqdm
 
     for region in tqdm(regions):
         width, length = region[:2]
@@ -93,6 +93,26 @@ def part_1(data):
             continue
 
         if solve_region(width, length, list_of_presents):
+            fit_all += 1
+
+    print(f"Part 1: {fit_all} regions can fit all presents.")
+
+
+def trivial(data):
+    raw_shapes, regions = data
+    shape_areas = [np.sum(s) for s in raw_shapes]
+
+    fit_all = 0
+    for region in tqdm(regions):
+        width, length = region[:2]
+
+        list_of_presents = []
+        for shape_idx, quantity in enumerate(region[2:]):
+            list_of_presents.extend([shape_idx] * quantity)
+
+        empty_area = width * length
+        needed_area = sum(shape_areas[idx] for idx in list_of_presents)
+        if needed_area / empty_area < 1:
             fit_all += 1
 
     print(f"Part 1: {fit_all} regions can fit all presents.")
@@ -132,4 +152,5 @@ if __name__ == "__main__":
     PATH = Path(__file__).parent
 
     data = get_data(PATH / "puzzle.txt")
-    part_1(data) # 2 min 35s
+    #part_1(data)  # 2 min 35s
+    trivial(data)  # 0 sec
